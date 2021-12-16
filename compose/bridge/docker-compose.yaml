@@ -1,0 +1,17 @@
+version: '3'
+services:
+
+  tbng-bridge:
+    image: tbng-tor
+    ports:
+     - "4443:4443"
+    volumes:
+     - bridgeconf:/opt/torconf
+
+volumes:
+  bridgeconf:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/conf/tbng-bridge"

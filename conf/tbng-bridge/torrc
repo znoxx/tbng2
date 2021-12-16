@@ -1,0 +1,13 @@
+Log notice stderr
+
+ORPort 9001
+AssumeReachable 1
+ExtORPort auto
+BridgeRelay 1
+PublishServerDescriptor 0
+ExitPolicy reject *:*
+ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
+ServerTransportListenAddr obfs4 0.0.0.0:4443
+ContactInfo nonofyourbusiness@example.com
+Nickname your_nickname
+

@@ -1,0 +1,22 @@
+VirtualAddrNetworkIPv4 10.192.0.0/10
+AutomapHostsOnResolve 1
+CircuitBuildTimeout 30
+KeepAlivePeriod 60
+NewCircuitPeriod 15 
+NumEntryGuards 8
+ConstrainedSockets 1
+AvoidDiskWrites 1
+TransPort 0.0.0.0:9040
+DNSPort 0.0.0.0:9053
+SocksPort 0.0.0.0:9050
+Log notice stderr
+
+######Bridges
+#UseBridges 1
+#ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy managed
+### get your own bridge!
+##bridge obfs4 194.53.111.122:80 5BAEB8825B16BB7C22B57EAE75FD7B4202587693 cert=bdLlL446aASeNP5x86KZtnrreFevmZ7DMDaJJhHci0rItDvM/dLzbH6K/OpBPtj+mc0Xcw iat-mode=0
+##bridge obfs4 45.156.26.186:8080 6C6AA2AFD2E30A5BD697DC8CFC8F63EFBF470A32 cert=48fqXgWpSbTFT+MS5KlNytj5OxGSkEvyEqwn0k6OPzW2aAU1Picyr7ngW9iyryebVgP/Xg iat-mode=0
+##bridge obfs4 5.240.148.107:43707 CB084E64C81FE7D470DFE3BCE5C734ADD5FF9047 cert=PG+8fdyxMnyNuuUIfl3Y74QhbgsfGNUghF6NQ/W8PHBcu3ub84JmGrqmgURWRn6I2ql9RQ iat-mode=0
+######Bridges end
+

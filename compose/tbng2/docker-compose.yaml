@@ -1,0 +1,67 @@
+version: '3'
+services:
+
+  tbng-tor:
+    image: tbng-tor
+    network_mode: host
+    healthcheck:
+      test: ["CMD", "curl", "--socks5", "127.0.0.1:9050","https://torproject.org"]
+      interval: 30s
+      timeout: 10s
+      retries: 5 
+    volumes:
+     - torconf:/opt/torconf
+
+  tbng-privoxy:
+    image: tbng-privoxy
+    network_mode: host
+    depends_on:
+      tbng-tor:
+        condition: service_healthy
+    volumes:
+     - privoxyconf:/opt/privoxyconf
+
+  tbng-ap:
+    image: tbng-ap
+    network_mode: host
+    depends_on:
+      tbng-tor:
+        condition: service_healthy
+    cap_add:
+     - NET_ADMIN
+     - SYS_ADMIN
+    devices:
+     - "/dev/rfkill:/dev/rfkill"
+    environment:
+   ### out and in interfaces 
+     - LAN=wlan0 
+     - WAN=eth0
+   ### initial dns
+     - DNS_SERVERS=192.168.1.24
+   ### subnet for AP
+     - SUBNET=192.168.254.0
+     - AP_ADDR=192.168.254.1
+   ### hostapd-related
+     - SSID=docker-ap
+     - CHANNEL=11
+     - WPA_PASSPHRASE=passw0rd
+     - HW_MODE=g
+     - DRIVER=nl80211
+     - HT_CAPAB=[HT40-][SHORT-GI-20][SHORT-GI-40]
+     - MODE=host
+    ### can be direct|tor|privoxy -- 
+     - TOR_MODE=privoxy
+
+volumes:
+  torconf:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/conf/tbng-tor"
+  privoxyconf:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/conf/tbng-privoxy"
