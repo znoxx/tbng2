@@ -3,6 +3,7 @@ services:
 
   tbng-tor:
     image: tbng-tor
+    restart: always
     network_mode: host
     healthcheck:
       test: ["CMD", "curl", "--socks5", "127.0.0.1:9050","https://torproject.org"]
@@ -14,6 +15,7 @@ services:
 
   tbng-privoxy:
     image: tbng-privoxy
+    restart: always
     network_mode: host
     depends_on:
       tbng-tor:
@@ -21,15 +23,17 @@ services:
     volumes:
      - privoxyconf:/opt/privoxyconf
 
-
   tbng-i2p:
     image: tbng-i2p
+    restart: always
     network_mode: host
     volumes:
      - i2pconf:/home/i2p-tbng/.i2p
+     - i2psnark:/home/i2p-tbng/i2psnarkdata
 
   tbng-ap:
     image: tbng-ap
+    restart: always
     network_mode: host
     depends_on:
       tbng-tor:
@@ -79,3 +83,9 @@ volumes:
       type: none
       o: bind
       device: "${PWD}/conf/tbng-i2p"
+  i2psnark:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "/var/data/downloads/snark"
