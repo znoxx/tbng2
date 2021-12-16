@@ -14,5 +14,6 @@ PID=$(/home/i2p-tbng/i2p/i2prouter start | awk -F  ":" {'print $3'})
 tail --pid=$(echo ${PID}) -f /dev/null
 
 echo "i2p PID lost, exiting..."
+exit 1
 
 

@@ -21,6 +21,13 @@ services:
     volumes:
      - privoxyconf:/opt/privoxyconf
 
+
+  tbng-i2p:
+    image: tbng-i2p
+    network_mode: host
+    volumes:
+     - i2pconf:/home/i2p-tbng/.i2p
+
   tbng-ap:
     image: tbng-ap
     network_mode: host
@@ -52,6 +59,7 @@ services:
     ### can be direct|tor|privoxy -- 
      - TOR_MODE=privoxy
 
+
 volumes:
   torconf:
     driver: local
@@ -65,3 +73,9 @@ volumes:
       type: none
       o: bind
       device: "${PWD}/conf/tbng-privoxy"
+  i2pconf:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/conf/tbng-i2p"
