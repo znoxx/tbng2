@@ -41,6 +41,9 @@ services:
     cap_add:
      - NET_ADMIN
      - SYS_ADMIN
+    #Uncomment devices, if you are not on lxc, or you passed rfkill device to LXC
+    # devices:
+    # - "/dev/rfkill:/dev/rfkill"
     environment:
    ### out and in interfaces 
      - LAN=wlan0 
