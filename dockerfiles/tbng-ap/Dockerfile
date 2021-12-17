@@ -1,6 +1,6 @@
 FROM debian:stable-slim
 
-RUN apt-get update && apt-get install -y supervisor bash rfkill hostapd iptables isc-dhcp-server iproute2 iw ca-certificates && \
+RUN apt-get update && apt-get install -y supervisor bash hostapd iptables isc-dhcp-server iproute2 iw ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /opt/ap
 RUN echo "" > /var/lib/dhcp/dhcpd.leases
