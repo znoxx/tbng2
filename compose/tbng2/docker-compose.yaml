@@ -41,8 +41,6 @@ services:
     cap_add:
      - NET_ADMIN
      - SYS_ADMIN
-    devices:
-     - "/dev/rfkill:/dev/rfkill"
     environment:
    ### out and in interfaces 
      - LAN=wlan0 

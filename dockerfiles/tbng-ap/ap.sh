@@ -56,9 +56,6 @@ ieee80211n=1
 wmm_enabled=1 
 EOF
 
-  # unblock wlan
-  rfkill unblock wlan
-
   echo "Setting interface ${LAN}"
 
   # Setup interface and restart DHCP service 
