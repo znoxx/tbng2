@@ -41,6 +41,9 @@ services:
     cap_add:
      - NET_ADMIN
      - SYS_ADMIN
+    #Uncomment devices, if you are not on lxc
+    devices:
+     - "/dev/rfkill:/dev/rfkill"
     environment:
    ### out and in interfaces 
      - LAN=wlan0 
@@ -48,16 +51,19 @@ services:
    ### initial dns
      - DNS_SERVERS=192.168.1.24
    ### subnet for AP
-     - SUBNET=192.168.254.0
-     - AP_ADDR=192.168.254.1
+     - SUBNET=192.168.242.0
+     - AP_ADDR=192.168.242.1
    ### hostapd-related
-     - SSID=docker-ap
+     - SSID=znoxxBox
      - CHANNEL=11
-     - WPA_PASSPHRASE=passw0rd
+     - WPA_PASSPHRASE=not4youreyes
      - HW_MODE=g
      - DRIVER=nl80211
      - HT_CAPAB=[HT40-][SHORT-GI-20][SHORT-GI-40]
      - MODE=host
+    ### Allowed ports -- e.g. 8118 will allow to setup a proxy
+     - ALLOWED_PORTS_TCP=8118 9050 7657
+     - ALLOWED_PORTS_UDP=
     ### can be direct|tor|privoxy -- 
      - TOR_MODE=privoxy
 
@@ -86,4 +92,4 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: "/var/data/downloads/snark"
+      device: "/var/downloads"
