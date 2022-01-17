@@ -41,7 +41,7 @@ services:
     cap_add:
      - NET_ADMIN
      - SYS_ADMIN
-    #Uncomment devices, if you are not on lxc
+    #Comment devices, if you are not on lxc or you have not passedthrough /dev/rfkill
     devices:
      - "/dev/rfkill:/dev/rfkill"
     environment:
