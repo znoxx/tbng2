@@ -8,10 +8,9 @@ EXPOSE 9053/udp
 RUN apt-get update && apt-get install -y tor curl tor-geoipdb obfs4proxy ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN groupadd -r tor-tbng && useradd -r -g tor-tbng tor-tbng && mkdir -p /opt/torconf && chown -R tor-tbng /opt/torconf && \
-    mkdir /home/tor-tbng && chown -R tor-tbng /home/tor-tbng
+RUN mkdir -p /opt/torconf && chown -R debian-tor /opt/torconf
 
-USER tor-tbng
+USER debian-tor
 
 VOLUME /opt/torconf
 
