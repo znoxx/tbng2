@@ -2,6 +2,7 @@ version: '3'
 services:
 
   tbng-bridge:
+    restart: unless-stopped
     image: tbng-tor
     ports:
      - "4443:4443"
