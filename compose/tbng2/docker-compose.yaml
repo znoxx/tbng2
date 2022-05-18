@@ -12,6 +12,8 @@ services:
       retries: 5 
     volumes:
      - torconf:/opt/torconf
+    mem_limit: 64m
+    cpus: 1
 
   tbng-privoxy:
     image: tbng-privoxy
@@ -22,6 +24,8 @@ services:
         condition: service_healthy
     volumes:
      - privoxyconf:/opt/privoxyconf
+    mem_limit: 16m
+    cpus: 0.5
 
   tbng-i2p:
     image: tbng-i2p
@@ -30,7 +34,9 @@ services:
     volumes:
      - i2pconf:/home/i2p-tbng/.i2p
      - i2psnark:/home/i2p-tbng/i2psnarkdata
-
+    mem_limit: 320m
+    cpus: 1
+     
   tbng-ap:
     image: tbng-ap
     restart: always
@@ -66,7 +72,8 @@ services:
      - ALLOWED_PORTS_UDP=
     ### can be direct|tor|privoxy -- 
      - TOR_MODE=privoxy
-
+    mem_limit: 320m
+    cpus: 0.5
 
 volumes:
   torconf:

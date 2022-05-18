@@ -1,6 +1,6 @@
 FROM debian:stable-slim
 
-ARG I2P_VERSION=1.6.1
+ARG I2P_VERSION=1.7.0
 
 RUN apt-get update && apt-get install -y supervisor procps expect bash openjdk-17-jdk-headless ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
