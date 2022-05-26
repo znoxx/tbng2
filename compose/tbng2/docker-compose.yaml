@@ -72,7 +72,7 @@ services:
      - ALLOWED_PORTS_UDP=
     ### can be direct|tor|privoxy -- 
      - TOR_MODE=privoxy
-    mem_limit: 320m
+    mem_limit: 64m
     cpus: 0.5
 
 volumes:
