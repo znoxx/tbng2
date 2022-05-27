@@ -1,8 +1,8 @@
 log
-fakeresolve
-parent 1000 socks5+ 127.0.0.1 9050
+include /conf/nserver.conf
+parent 1000 socks5+ tor 9050
 proxy -p8888 -a -n
-socks -p10800
+socks -p1080
 
 
 

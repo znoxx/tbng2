@@ -4,21 +4,27 @@ services:
   tbng-bridge:
     restart: unless-stopped
     image: tbng-tor
-    network_mode: host
+    hostname: tor
+    ports:
+      - 4443:4443 
     healthcheck:
       test: ["CMD", "curl", "--fail", "--socks5", "127.0.0.1:9050","https://torproject.org"]
       interval: 30s
       timeout: 10s
       retries: 10 
     volumes:
-     - bridgeconf:/opt/torconf
+      - bridgeconf:/opt/torconf
     mem_limit: 128m
     cpus: 0.5
 
   tbng-3proxy:
     restart: unless-stopped
     image: tbng-3proxy_ds
-    network_mode: host
+    links: 
+      - tbng-bridge:tor
+    ports:
+      - 8888:8888
+      - 10800:1080
     environment:
       - AUTH=${AUTH}
       - PROXY_USERNAME=${PROXY_USERNAME}
