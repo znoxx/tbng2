@@ -4,8 +4,7 @@ services:
   tbng-bridge:
     restart: unless-stopped
     image: tbng-tor
-    ports:
-     - "4443:4443" 
+    network_mode: host
     healthcheck:
       test: ["CMD", "curl", "--fail", "--socks5", "127.0.0.1:9050","https://torproject.org"]
       interval: 30s
@@ -19,17 +18,11 @@ services:
   tbng-3proxy:
     restart: unless-stopped
     image: tbng-3proxy_ds
-    ports: 
-      - "8888:8888"
-      - "1080:10800"
-    links:
-      - "tbng-bridge:tor"
+    network_mode: host
     environment:
-      - AUTH=AUTH
-### uncomment and change this or move to external env
-    #  - PROXY_USERNAME=proxyuser
-### uncomment and change this or move to external env
-    #  - PROXY_PASSWORD=proxypassword
+      - AUTH=${AUTH}
+      - PROXY_USERNAME=${PROXY_USERNAME}
+      - PROXY_PASSWORD=${PROXY_PASSWORD}
     depends_on:
       tbng-bridge:
         condition: service_healthy
