@@ -10,7 +10,7 @@ services:
       test: ["CMD", "curl", "--fail", "--socks5", "127.0.0.1:9050","https://torproject.org"]
       interval: 30s
       timeout: 10s
-      retries: 5 
+      retries: 10 
     volumes:
      - bridgeconf:/opt/torconf
     mem_limit: 128m
@@ -26,10 +26,10 @@ services:
       - "tbng-bridge:tor"
     environment:
       - AUTH=AUTH
-### change this!
+### change this or move to external env
       - PROXY_USERNAME=proxyuser
-### change this! 
-      - PROXY_PASSWORD=password
+### change this or move to external env
+      - PROXY_PASSWORD=proxypassword
     depends_on:
       tbng-bridge:
         condition: service_healthy
