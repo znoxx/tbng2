@@ -1,0 +1,3 @@
+allow *
+include /conf/3proxy.common
+

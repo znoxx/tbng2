@@ -1,0 +1,5 @@
+users $/conf/passwd
+auth strong
+allow *
+include /conf/3proxy.common
+

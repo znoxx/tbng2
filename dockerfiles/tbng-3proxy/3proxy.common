@@ -1,0 +1,8 @@
+log
+fakeresolve
+parent 1000 socks5+ tor 9050
+proxy -p8888 -a -n
+socks -p1080
+
+
+

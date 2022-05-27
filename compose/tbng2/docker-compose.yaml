@@ -3,10 +3,10 @@ services:
 
   tbng-tor:
     image: tbng-tor
-    restart: always
+    restart: unless-stopped
     network_mode: host
     healthcheck:
-      test: ["CMD", "curl", "--socks5", "127.0.0.1:9050","https://torproject.org"]
+      test: ["CMD", "curl", "--fail", "--socks5", "127.0.0.1:9050","https://torproject.org"]
       interval: 30s
       timeout: 10s
       retries: 5 
@@ -17,7 +17,7 @@ services:
 
   tbng-privoxy:
     image: tbng-privoxy
-    restart: always
+    restart: unless-stopped
     network_mode: host
     depends_on:
       tbng-tor:
@@ -39,7 +39,7 @@ services:
      
   tbng-ap:
     image: tbng-ap
-    restart: always
+    restart: unless-stopped
     network_mode: host
     depends_on:
       tbng-tor:
