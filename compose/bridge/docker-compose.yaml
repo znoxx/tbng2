@@ -26,8 +26,10 @@ services:
       - "tbng-bridge:tor"
     environment:
       - AUTH=AUTH
-      - PROXY_USERNAME=telegram
-      - PROXY_PASSWORD=telegram130418
+### change this!
+      - PROXY_USERNAME=proxyuser
+### change this! 
+      - PROXY_PASSWORD=password
     depends_on:
       tbng-bridge:
         condition: service_healthy
