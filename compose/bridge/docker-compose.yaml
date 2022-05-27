@@ -26,10 +26,10 @@ services:
       - "tbng-bridge:tor"
     environment:
       - AUTH=AUTH
-### change this or move to external env
-      - PROXY_USERNAME=proxyuser
-### change this or move to external env
-      - PROXY_PASSWORD=proxypassword
+### uncomment and change this or move to external env
+    #  - PROXY_USERNAME=proxyuser
+### uncomment and change this or move to external env
+    #  - PROXY_PASSWORD=proxypassword
     depends_on:
       tbng-bridge:
         condition: service_healthy
