@@ -12,7 +12,7 @@ RUN mkdir -p /opt/torconf && chown -R debian-tor /opt/torconf
 
 USER debian-tor
 
-VOLUME /opt/torconf
+VOLUME ["/opt/torconf","/var/lib/tor"]
 
 ENTRYPOINT ["/usr/sbin/tor", "-f","/opt/torconf/torrc"]
 

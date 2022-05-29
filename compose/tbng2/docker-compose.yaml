@@ -12,6 +12,7 @@ services:
       retries: 5 
     volumes:
      - torconf:/opt/torconf
+     - tordata:/var/lib/tor
     mem_limit: 64m
     cpus: 1
 
@@ -82,6 +83,12 @@ volumes:
       type: none
       o: bind
       device: "${PWD}/conf/tbng-tor"
+  tordata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/data/tbng-tor"
   privoxyconf:
     driver: local
     driver_opts:

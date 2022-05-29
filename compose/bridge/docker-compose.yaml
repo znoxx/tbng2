@@ -14,6 +14,7 @@ services:
       retries: 10 
     volumes:
       - bridgeconf:/opt/torconf
+      - bridgedata:/var/lib/tor
     mem_limit: 128m
     cpus: 0.5
 
@@ -42,3 +43,9 @@ volumes:
       type: none
       o: bind
       device: "${PWD}/conf/tbng-bridge"
+  bridgedata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/data/tbng-bridge"
