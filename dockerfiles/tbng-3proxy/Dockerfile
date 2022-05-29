@@ -3,7 +3,7 @@ ARG RELEASE=0.9.4
 ARG ARCH=unknown
 ENV AUTH=OPEN
 ADD https://github.com/3proxy/3proxy/releases/download/$RELEASE/3proxy-$RELEASE.$ARCH.deb /tmp/
-RUN apt-get update && apt-get install curl -y
+RUN apt-get update && apt-get install --no-install-recommends curl ca-certificates -y
 RUN dpkg -i /tmp/3proxy-$RELEASE.$ARCH.deb
 RUN chmod a+x /etc/3proxy/conf/add3proxyuser.sh
 RUN useradd -ms /bin/bash 3proxy
