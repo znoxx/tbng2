@@ -5,7 +5,9 @@ EXPOSE 9040
 EXPOSE 9050
 EXPOSE 9053/udp
 
-RUN apt-get update && apt-get install --no-install-recommends -y tor curl tor-geoipdb obfs4proxy ca-certificates && \
+RUN apt-get update && apt-get install --no-install-recommends -y \
+    netbase psmisc \
+    tor curl tor-geoipdb obfs4proxy ca-certificates && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir -p /opt/torconf && chown -R debian-tor /opt/torconf
