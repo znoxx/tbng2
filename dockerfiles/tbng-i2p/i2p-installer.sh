@@ -1,9 +1,12 @@
 #!/bin/sh
-cd 
+if [ -e i2p/i2prouter ]; then
+  echo "I2P appears to be installed, exiting..."
+  exit 0 
+fi
 /usr/bin/expect -c '
 set timeout 20
 
-spawn /usr/bin/java -jar i2pinstall_$::env(I2P_VERSION).jar -console
+spawn /usr/bin/java -jar i2pinstall_$::env(I2P_INITIAL_VERSION).jar -console
 
 
 expect "Input selection:" { send "0\r" }

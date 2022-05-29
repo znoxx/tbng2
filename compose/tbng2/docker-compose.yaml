@@ -30,11 +30,12 @@ services:
 
   tbng-i2p:
     image: tbng-i2p
-    restart: always
+    restart: unless-stopped
     network_mode: host
     volumes:
      - i2pconf:/home/i2p-tbng/.i2p
      - i2psnark:/home/i2p-tbng/i2psnarkdata
+     - i2pdata:/home/i2p-tbng/i2p
     mem_limit: 320m
     cpus: 1
      
@@ -107,3 +108,10 @@ volumes:
       type: none
       o: bind
       device: "/var/downloads"
+  i2pdata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/data/tbng-i2p"
+
