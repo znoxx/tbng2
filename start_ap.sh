@@ -1,5 +1,7 @@
 #!/bin/bash
 set -e
 ./stop_ap.sh
-docker-compose -f compose/tbng2/docker-compose.yaml up -d
+./prepare_volumes.sh
+source $(pwd)/env_load.sh
+docker-compose $ENVFILE -f compose/tbng2/docker-compose.yaml up -d
 

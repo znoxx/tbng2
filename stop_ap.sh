@@ -1,4 +1,5 @@
 #!/bin/bash
 set -e
-docker-compose -f compose/tbng2/docker-compose.yaml down
+source $(pwd)/env_load.sh
+docker-compose $ENVFILE -f compose/tbng2/docker-compose.yaml down
 
