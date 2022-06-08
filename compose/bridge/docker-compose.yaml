@@ -15,7 +15,7 @@ services:
     volumes:
       - bridgeconf:/opt/torconf
       - bridgedata:/var/lib/tor
-    mem_limit: 128m
+    mem_limit: 160m
     cpus: 0.5
 
   tbng-3proxy:
