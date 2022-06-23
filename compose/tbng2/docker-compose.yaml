@@ -32,6 +32,7 @@ services:
     image: tbng-i2p
     restart: unless-stopped
     network_mode: host
+    stop_grace_period: 40s
     volumes:
      - i2pconf:/home/i2p-tbng/.i2p
      - i2psnark:/home/i2p-tbng/i2psnarkdata

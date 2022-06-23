@@ -14,10 +14,10 @@ ENV I2P_INITIAL_VERSION=${I2P_VERSION}
 ADD i2p-installer.sh /home/i2p-tbng/i2p-installer.sh
 ADD start_i2p.sh /home/i2p-tbng/start_i2p.sh
 ADD supervisord.conf /home/i2p-tbng/supervisord.conf
-ADD entrypoint.sh /home/i2p-tbng/entrypoint.sh
 RUN chown -R i2p-tbng /home/i2p-tbng
 
 USER i2p-tbng
 WORKDIR /home/i2p-tbng
 
-ENTRYPOINT ["/home/i2p-tbng/entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/supervisord", "-c", "/home/i2p-tbng/supervisord.conf"]
+
