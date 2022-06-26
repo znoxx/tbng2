@@ -62,7 +62,8 @@ tbng-i2p
 tbng-privoxy
 tbng-tor
 ```
-One more point about I2P -- one can edit build.sh and change initial I2P version, if more recent version available on [official I2P site](https://geti2p.net/).
+Note about I2P -- one can edit build.sh and change initial I2P version, if more recent version available on [official I2P site](https://geti2p.net/).
+But, be careful here -- installation script sequence may be changed, and "expect" magic may fail -- installer script must be updated then.
 
 On dedicated server for private bridge one will need to build following images:
 ```
