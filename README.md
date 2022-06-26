@@ -35,6 +35,7 @@ TODO
 # curl https://get.docker.com |sh
 # pip3 install docker-compose
 ```
+One can skip python-related packages, gcc and make install, if docker-compose installed not via pip, but via pre-build binary from [official source](https://github.com/docker/compose)
 
 * For AP support -- identify network interface to use for AP (LAN) and internet acess (WAN). 
 
