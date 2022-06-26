@@ -107,4 +107,10 @@ YMMV here. Generally, using private bridge for TOR gives good results. Here is a
 
 Also using USB WiFi Dongle instead of cable connection may introduce some speed degradation.
 
+My own setup runs in LXC container on Orange Pi 4 with wlan0 interface bypassed and /dev/rfkill also for quite long time (yeah, docker inside LXC, because we can).
+
+Also SBC part is tested on cheap and not-so-popular Rock Pi S with 512Mb of RAM.
+
+
+
 
