@@ -31,7 +31,7 @@ TODO
 
 ```
 # apt-get update
-# apt-get install git curl python3-setuptools python3-pip python3-wheel python3-cryptography libffi-dev python3-dev
+# apt-get install git curl python3-setuptools python3-pip python3-wheel python3-cryptography libffi-dev python3-dev gcc make
 # curl https://get.docker.com |sh
 # pip3 install docker-compose
 ```
@@ -82,7 +82,7 @@ TODO
 ### Running SBC part
 TODO
 
-## VPS part preparation
+## VPS preparation
 TODO
 
 ### Configuring private bridge (on VPS)
@@ -103,5 +103,6 @@ YMMV here. Generally, using private bridge for TOR gives good results. Here is a
 
 ![result](result.jpg)
 
+Also using USB WiFi Dongle instead of cable connection may introduce some speed degradation.
 
 
