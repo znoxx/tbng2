@@ -72,8 +72,8 @@ services:
      - MODE=host
     ### Allowed ports -- e.g. 8118 will allow to setup a proxy
      - ALLOWED_PORTS_TCP=8118 9050 7657
-     - ALLOWED_PORTS_UDP=
-    ### can be direct|tor|privoxy -- 
+     - ALLOWED_PORTS_UDP=9053
+    ### can be direct|tor|privoxy
      - TOR_MODE=privoxy
     mem_limit: 64m
     cpus: 0.5
