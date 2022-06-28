@@ -14,13 +14,12 @@ This is a successor of [TBNG](https://github.com/znoxx/tbng) project.
 * No hacks, no non-standard binaries (like hostapd or bigint library for I2P)
 * No fuzzy configs, custom scripts
 
-### What is gone
+### WhatZ gone
 
 * UI. Probably forever. No reason to overcomplicate system with a UI. docker-compose files are easy to understand and edit.
 * MAC spoofing to connect to internet. It's counter-productive to support weird USB Wi-Fi adapters and one can spoof mac address with means of Linux. Read the docs.
 * TOR bridge settings via UI. Again, not needed. Also, obfs3 is obsolete and insecure -- obfs4 is good option.
 
-Generally TBNG was "designed" to work as "mobile" companion. F*ck the mobility. 2022 finally put the last nail into travel industry coffin, so why should we care ?
 
 ## How it works
 
@@ -345,6 +344,16 @@ My own setup runs in LXC container on Orange Pi 4 with wlan0 interface bypassed 
 
 Also, SBC part is tested on cheap and not-so-popular Rock Pi S with 512Mb of RAM.
 
+## Test matrix
+
+Simple test matrix used to check functionality:
+
+| MODE    | Inet access | SSH access via AP | External proxy (8118) |
+| ------- | ----------- | ----------------- | --------------------- |
+| direct  | ok/ko       | ok/ko             | ok/ko                 |
+| tor     | ok/ko       | ok/ko             | ok/ko                 |
+| privoxy | ok/ko       | ok/ko             | ok/ko                 |
+
 
 ## Reporting bugs
 
@@ -364,4 +373,17 @@ Bug report should contain:
 * docker logs for tor and 3proxy for Bridge/VPS part
 
 IMPORTANT: Mind sensitive data like bridge hashes in logs.
+
+
+## Roadmap
+
+Actually, system does, what it does. There is a couple of things to solve someday.
+
+* Docker image multistage build -- all images use same debian build. Good to have common packages pre-installed in one "common image" to avoid re-downloading and re-installing.
+* I2P installer improvements. I2P installation is done in "hacky" way using expect. This may f*ck up after I2P version update. Need to find out more reliable way to avoid service misbehave.
+
+However, pull requests are welcome!
+
+
+
 
