@@ -71,8 +71,8 @@ services:
      - HT_CAPAB=[HT40-][SHORT-GI-20][SHORT-GI-40]
      - MODE=host
     ### Allowed ports -- e.g. 8118 will allow to setup a proxy
-     - ALLOWED_PORTS_TCP=8118 9050 7657
-     - ALLOWED_PORTS_UDP=9053
+     - ALLOWED_PORTS_TCP=8118 9050 7657 22
+     - ALLOWED_PORTS_UDP=9053 53
     ### can be direct|tor|privoxy
      - TOR_MODE=privoxy
     mem_limit: 64m

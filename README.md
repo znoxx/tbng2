@@ -1,22 +1,50 @@
 # TOR Box Next Generation 2
 Almost OOB solution to create:
-* TOR/I2P Wifi Access Point
-* TOR/I2P Proxy On LAN
+* TOR/I2P Wi-Fi Access Point
+* TOR/I2P Proxy On LAN (e.g. home LAN)
 * Private TOR Bridge server
 
 This is a successor of [TBNG](https://github.com/znoxx/tbng) project.
 
 ## Feature comparison with original TBNG project
 
-TODO
+### WhatZ new
+
+* Linux agnostic. Docker is used, so should work on any SBC/distro, where docker is working.
+* No hacks, no non-standard binaries (like hostapd or bigint library for I2P)
+* No fuzzy configs, custom scripts
+
+### What is gone
+
+* UI. Probably forever. No reason to overcomplicate system with a UI. docker-compose files are easy to understand and edit.
+* MAC spoofing to connect to internet. It's counter-productive to support weird USB Wi-Fi adapters and one can spoof mac address with means of Linux. Read the docs.
+* TOR bridge settings via UI. Again, not needed. Also, obfs3 is obsolete and insecure -- obfs4 is good option.
+
+Generally TBNG was "designed" to work as "mobile" companion. F*ck the mobility. 2022 finally put the last nail into travel industry coffin, so why should we care ?
 
 ## How it works
 
-TODO
+SBC part is a set of properly orchestrated containers. 
+
+Containers running in *host* network to allow flawless firewall operation. 
+
+* TOR container, well it's just TOR instance. Can be also used as DNS resolver via port 9053.
+* Privoxy is responsible for http proxy functionally, also it forwards .i2p and .onion requests to appropriate container.
+* I2P is i2p instance. Since container stores data externally via volume -- it can be updated with I2P internal means.
+* Access Point contains all needed components to run hostapd, dhcp server and play with firewall rules. This container requires extra privileges like SYS_ADMIN and NET_ADMIN.
+
+One can change settings via docker-compose and apply new configuration from command line.
+
+VPS part is intended to provide private bridge functionality.
+
+Idea is pretty much the same:
+
+* TOR container works like bridge.
+* 3Proxy container provides http/socks proxy functionality with authentication.
 
 ## Requirements
 
-* Any SBC with at least 2 cores CPU and 512MB of RAM, Linux and Docker (and docker-compose). [Armbian](https://armbian.com) is a best bet here.
+* Any SBC with at least 2 cores CPU and 512MB of RAM, Linux and Docker (and docker-compose). [Armbian](https://armbian.com) is the best bet here.
 * Can run on smaller SBC without I2P functionality.
 * For private bridge functionality one will need rented VPS (tested with single core, 256Mb cheap KVM box).
 * For access point functionality one will need dedicated WAN interface, compatible with nl80211 driver.
@@ -36,9 +64,11 @@ TODO
 # curl https://get.docker.com |sh
 # pip3 install docker-compose
 ```
+Do not forget to add yourself to "docker" group and re-login to use docker without root credentials.
+
 One can skip python-related packages, gcc and make install, if docker-compose installed not via pip, but via pre-build binary from [official source](https://github.com/docker/compose)
 
-* For AP support -- identify network interface to use for AP (LAN) and internet acess (WAN). 
+* For AP support -- identify network interface to use for AP (LAN) and internet access (WAN). 
 
 ### Building docker images
 
@@ -84,7 +114,7 @@ SBC-part is configured by editing config files and docker-compose files
 
 #### conf/tbng-privoxy
 
-Generally, this configuration should not be edited. Privoxy is used to route http(s) requests to TOR. Also it forwards .onion and .i2p domains to tor and i2p respectively.
+Generally, this configuration should not be edited. Privoxy is used to route http(s) requests to TOR. Also, it forwards .onion and .i2p domains to tor and i2p respectively.
 
 One can refer to official privoxy [documentation](https://www.privoxy.org/) and add more settings, like filtering. Mind configuration file locations and volumes created.
 
@@ -116,19 +146,19 @@ If no AP functionality is needed -- just comment tbng-ap service completely.
 
 If AP is used, tweak following settings in "devices" and "environment"
 
-###### Devices: /dev/rfkill passthrogh
+###### Devices: /dev/rfkill passthrough
 
 Device "rfkill" reference. Can be removed, if no /dev/rfkill in system (for whatever reason)
 
 ###### Environment: out and in interfaces
 
-LAN interface should be your AP wifi adapter determined earlier.
+LAN interface should be your AP Wi-Fi adapter determined earlier.
 
-WAN interface is your interface for Internet access. You can switch to cable (eth0) or wirelese (in case you have secondary wifi interface).
+WAN interface is your interface for Internet access. You can switch to cable (eth0) or wireless (in case you have secondary Wi-Fi interface).
 
 ###### Environment: initial dns
 
-Space separated list of DNS servers to use. Sometimes providers block any DNS servers, except their own. So put here your provider's DNS or homelan one. 
+Space separated list of DNS servers to use. Sometimes providers block any DNS servers, except their own. So put here your provider's DNS or home LAN one. 
 
 For sure, 8.8.8.8 is possible, if it works for you.
 
@@ -138,20 +168,21 @@ Subnet and access point IP  -- 192.168.242.0 and 192.168.242.1 in example.
 
 ###### Environment: hostapd-related
 
-SSID, channel, password, etc for your access point. Currently configured for 2.4 Ghz AP. One can play with HW_MODE and HT_CAPAB to configure e.g 5 Ghz access. Refer to official hostapd [documentation](https://w1.fi/hostapd/).
+SSID, channel, password, etc. for your access point. By default, it is configured for 2.4 Ghz AP. One can play with HW_MODE and HT_CAPAB to configure e.g 5 Ghz access. Refer to official hostapd [documentation](https://w1.fi/hostapd/).
 
 
 ###### Environment: Allowed ports 
 
-Ports to open on firewall. By default -- privoxy, tor socks, web access for I2P (TCP), and TOR dns (UDP)
+Ports to open on firewall. By default -- privoxy, tor socks, ssh, web access for I2P (TCP), and TOR dns (UDP)
 
 ###### Environment: TOR_MODE
 
 Most important setting:
 
 * privoxy -- all traffic is routed via privoxy -- automatic support of .onion and .i2p domains
-* tor -- Tor access point. One should explicitly setup http proxy in client systems to allow .onion and .i2p domain operation
+* tor -- Tor access point. One should explicitly set up http proxy in client systems to allow .onion and .i2p domain operation
 * direct -- Just a simple access point. No automatic TOR usage. One can still explicitly setup http proxy in client systems to allow .onion and .i2p domain operation _and_ tor access.
+
 
 ### Running SBC part
 
@@ -183,7 +214,7 @@ To stop:
 
 #### Troubleshooting
 
-Main tor container is healthchecked. So if one receives error like:
+Main tor container is health checked. So if one receives error like:
 ```
 ERROR: for tbng-ap  Container "some_container_id" is unhealthy.
 ERROR: Encountered errors while bringing up the project.
@@ -210,7 +241,7 @@ If I2P is active -- go to http://your_lan_ip_of_tbng2_box:7657 and finalize the 
 
 After feel free to connect to AP and try to access https://check.torproject.org to check TOR access is OK.
 
-Also one can setup http proxy for other devices on home lan, where needed -- set it to http://your_lan_ip_of_tbng2_box:8118 or socks one -- point to your_lan_ip_of_tbng2_box:9050
+Also, one can set up http proxy for other devices on home lan, where needed -- set it to http://your_lan_ip_of_tbng2_box:8118 or socks one -- point to your_lan_ip_of_tbng2_box:9050
 
 #### Restarts and cleaning
 
@@ -218,19 +249,89 @@ System is designed to save persistent data. To start from scratch -- stop via `s
 
 
 ## VPS preparation
-TODO
+VPS is used to work as your "personal bridge". Also, it is possible to use same VPS as socks and http proxy with authentication (since it is running in "open Internet").
+VPS can be rented in country, where TOR is not blocked. But in my case it runs even after blocking was announced. Only difference -- TOR bootstraps quite significant time.
+
+VPS requirements are quite humble -- even 256Mb (with swap enabled) system with 1 CPU core will do. For best results 512Mb box should be rented.
+
+On fresh VPS install docker and docker-compose -- just follow same steps described in SBC part above.
 
 ### Configuring private bridge (on VPS)
-TODO
+After cloning the project -- build required docker images:
+
+* tbng-3proxy
+* tbng-tor
+
+3proxy image will provide external http/socks proxy functionality. This part is optional one, so feel free to comment it in `compose/bridge/docker-compose.yaml`.
+
+But if one wants external proxy -- one extra step is required -- creating `.env` file in project root. It will contain 3 parameters:
+
+```
+AUTH=AUTH
+PROXY_USERNAME=desired-proxy-username
+PROXY_PASSWORD=desired-proxy-password
+```
+
+First parameters tells system to run with authentication. Other two are credentials.
+
+By default, proxy will run on 10800 (socks) and 8888 (http). This can be changed in `compose/bridge/docker-compose.yaml`.
+
+`conf/tbng-bridge/torrc` is already preconfigured, only one thing to change here is a Nickname
 
 ### Running private bridge
-TODO
+To start a bridge -- execute command in project root dir:
+```
+./start_bridge.sh
+```
+
+If no blocks encountered system will start in some reasonable time. One can check status with "docker logs container_name". 
+
+When system is up, one will need to grab credentials for running bridge:
+```
+./get_bridge.sh 
+Bridge template...
+# obfs4 torrc client bridge line
+#
+# This file is an automatically generated bridge line based on
+# the current obfs4proxy configuration.  EDITING IT WILL HAVE
+# NO EFFECT.
+#
+# Before distributing this Bridge, edit the placeholder fields
+# to contain the actual values:
+#  <IP ADDRESS>  - The public IP address of your obfs4 bridge.
+#  <PORT>        - The TCP/IP port of your obfs4 bridge.
+#  <FINGERPRINT> - The bridge's fingerprint.
+
+Bridge obfs4 <IP ADDRESS>:<PORT> <FINGERPRINT> cert=BlahBlahYadaYadaYadaFooBar iat-mode=0
+Bridge fingerprint...
+zaloopa BLAHBLAHF00BARYADAYADA
+
+```
+
+Now construct new bridge line from provided data. It will be like this:
+```
+bridge obfs4 your.vps.ip.addr:4443 BLAHBLAHF00BARYADAYADA cert=BlahBlahYadaYadaYadaFooBar iat-mode=0
+```
+
+Save it to some handy place and proceed to your SBC installation (or even TorBrowser or any other TOR instance).
+
+This config persistent. To flush it -- cleanup volumes with enclosed script. New credentials will be generated on next start. Don't forget to change it on clients.
 
 ### Connecting to private bridge from SBC 
-TODO
+In torrc add the following section. It already exists in torrc-template, but commented. So your final config will be like this:
+
+```
+######Bridges
+UseBridges 1
+ClientTransportPlugin obfs4 exec /usr/bin/obfs4proxy managed
+### get your own bridge!
+bridge obfs4 your.vps.ip.addr:4443 BLAHBLAHF00BARYADAYADA cert=BlahBlahYadaYadaYadaFooBar iat-mode=0
+######Bridges end
+```
+Restart your tor instance and see it working.
 
 ### Using private socks/http(s) proxy at VPS side
-TODO
+Just use address your.vps.ip.addr:8888 as http proxy or your.vps.ip.addr:9050 as socks one. Keep credentials safe, use some complicated password.
 
 ## Results
 
@@ -238,11 +339,11 @@ YMMV here. Generally, using private bridge for TOR gives good results. Here is a
 
 ![result](result.jpg)
 
-Also using USB WiFi Dongle instead of cable connection may introduce some speed degradation.
+Also using USB Wi-Fi Dongle instead of cable connection may introduce some speed degradation.
 
 My own setup runs in LXC container on Orange Pi 4 with wlan0 interface bypassed and /dev/rfkill also for quite long time (yeah, docker inside LXC, because we can).
 
-Also SBC part is tested on cheap and not-so-popular Rock Pi S with 512Mb of RAM.
+Also, SBC part is tested on cheap and not-so-popular Rock Pi S with 512Mb of RAM.
 
 
 ## Reporting bugs

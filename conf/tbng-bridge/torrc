@@ -10,7 +10,7 @@ ExitPolicy reject6 *:*
 ServerTransportPlugin obfs4 exec /usr/bin/obfs4proxy
 ServerTransportListenAddr obfs4 0.0.0.0:4443
 ContactInfo nonofyourbusiness@example.com
-Nickname znoxx
+Nickname zaloopa
 AvoidDiskWrites 1
 MaxMemInQueues 128 MBytes
 SOCKSPort 0.0.0.0:9050

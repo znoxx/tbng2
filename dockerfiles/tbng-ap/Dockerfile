@@ -12,8 +12,8 @@ ADD clean_firewall.sh /opt/ap/clean_firewall.sh
 ADD privoxy.sh /opt/ap/privoxy.sh
 ADD tor.sh /opt/ap/tor.sh
 ADD _tor.sh /opt/ap/_tor.sh
+ADD direct.sh /opt/ap/direct.sh
 ADD supervisord.conf /supervisord.conf
 
-RUN ln -s /opt/ap/masquerade.sh /opt/ap/direct.sh
 
 ENTRYPOINT ["/usr/bin/supervisord", "-c", "/supervisord.conf"]
