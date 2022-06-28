@@ -1,5 +1,6 @@
 # TOR Box Next Generation 2
 Almost OOB solution to create:
+
 * TOR/I2P Wi-Fi Access Point
 * TOR/I2P Proxy On LAN (e.g. home LAN)
 * Private TOR Bridge server
