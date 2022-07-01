@@ -212,6 +212,8 @@ To stop:
 ./stop_ap.sh
 ```
 
+After start, system will wait for TOR availability. Also, I2P container will do some internal configuration with I2P restart, and UI will be available via host_ip:7657 in a minute. 
+
 #### Troubleshooting
 
 Main tor container is health checked. So if one receives error like:
@@ -331,7 +333,7 @@ bridge obfs4 your.vps.ip.addr:4443 BLAHBLAHF00BARYADAYADA cert=BlahBlahYadaYadaY
 Restart your tor instance and see it working.
 
 ### Using private socks/http(s) proxy at VPS side
-Just use address your.vps.ip.addr:8888 as http proxy or your.vps.ip.addr:9050 as socks one. Keep credentials safe, use some complicated password.
+Just use address your.vps.ip.addr:8888 as http proxy or your.vps.ip.addr:10800 as socks one. Keep credentials safe, use some complicated password.
 
 ## Results
 

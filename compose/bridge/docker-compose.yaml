@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
 
   tbng-bridge:
@@ -15,8 +15,11 @@ services:
     volumes:
       - bridgeconf:/opt/torconf
       - bridgedata:/var/lib/tor
-    mem_limit: 160m
-    cpus: 0.5
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 160m
 
   tbng-3proxy:
     restart: unless-stopped
@@ -33,8 +36,11 @@ services:
     depends_on:
       tbng-bridge:
         condition: service_healthy
-    mem_limit: 32m
-    cpus: 0.5
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 32m
 
 volumes:
   bridgeconf:

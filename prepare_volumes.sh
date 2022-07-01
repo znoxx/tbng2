@@ -3,9 +3,9 @@ folders="data/tbng-tor data/tbng-bridge data/tbng-i2p conf/tbng-i2p"
 for folder in $folders
 do
    if [ -e "$folder" ]; then
-     echo "Folder $folder already exist, skpping..."
+     echo "Folder $folder already exists, skpping..."
    else
-     echo "Creationg folder $folder"
+     echo "Creating folder $folder"
      mkdir -p $folder
      chmod 777 $folder
     fi

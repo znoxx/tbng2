@@ -1,4 +1,4 @@
-version: '3'
+version: '3.8'
 services:
 
   tbng-tor:
@@ -9,12 +9,15 @@ services:
       test: ["CMD", "curl", "--fail", "--socks5", "127.0.0.1:9050","https://torproject.org"]
       interval: 30s
       timeout: 10s
-      retries: 5 
+      retries: 5
     volumes:
      - torconf:/opt/torconf
      - tordata:/var/lib/tor
-    mem_limit: 64m
-    cpus: 1
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 64m
 
   tbng-privoxy:
     image: tbng-privoxy
@@ -25,8 +28,11 @@ services:
         condition: service_healthy
     volumes:
      - privoxyconf:/opt/privoxyconf
-    mem_limit: 16m
-    cpus: 0.5
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 16m
 
   tbng-i2p:
     image: tbng-i2p
@@ -37,8 +43,11 @@ services:
      - i2pconf:/home/i2p-tbng/.i2p
      - i2psnark:/home/i2p-tbng/i2psnarkdata
      - i2pdata:/home/i2p-tbng/i2p
-    mem_limit: 320m
-    cpus: 1
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 320m
      
   tbng-ap:
     image: tbng-ap
@@ -50,12 +59,12 @@ services:
     cap_add:
      - NET_ADMIN
      - SYS_ADMIN
-    #Comment devices, if you are not on lxc or you have not passedthrough /dev/rfkill
+   ###  Comment devices, if you are not on lxc or you have not passedthrough /dev/rfkill
     devices:
      - "/dev/rfkill:/dev/rfkill"
     environment:
-   ### out and in interfaces 
-     - LAN=wlan0 
+   ### out and in interfaces
+     - LAN=wlan0
      - WAN=eth0
    ### initial dns
      - DNS_SERVERS=192.168.1.24
@@ -75,8 +84,11 @@ services:
      - ALLOWED_PORTS_UDP=9053 53
     ### can be direct|tor|privoxy
      - TOR_MODE=privoxy
-    mem_limit: 64m
-    cpus: 0.5
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 64m
 
 volumes:
   torconf:
