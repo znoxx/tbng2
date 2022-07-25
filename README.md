@@ -62,8 +62,9 @@ Idea is pretty much the same:
 # apt-get update
 # apt-get install git curl python3-setuptools python3-pip python3-wheel python3-cryptography libffi-dev python3-dev gcc make
 # curl https://get.docker.com |sh
-# pip3 install docker-compose
 ```
+`docker-compose` can (and should) be installed using [offical installation instructions](https://docs.docker.com/compose/install/compose-plugin/#install-the-plugin-manually).
+
 Do not forget to add yourself to "docker" group and re-login to use docker without root credentials.
 
 One can skip python-related packages, gcc and make install, if docker-compose installed not via pip, but via pre-build binary from [official source](https://github.com/docker/compose)
