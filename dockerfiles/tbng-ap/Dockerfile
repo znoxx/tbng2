@@ -1,6 +1,6 @@
 FROM tbng-common
 
-RUN apt-get update && apt-get install --no-install-recommends -y supervisor bash hostapd iptables isc-dhcp-server iproute2 iw && \
+RUN apt-get install --no-install-recommends -y supervisor bash hostapd iptables isc-dhcp-server iproute2 iw && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN mkdir -p /opt/ap
 RUN echo "" > /var/lib/dhcp/dhcpd.leases
