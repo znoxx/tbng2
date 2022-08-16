@@ -59,6 +59,7 @@ Idea is pretty much the same:
 * Enable ipv4 dynamic address support -- set net.ipv4.ip_dynaddr = 1
 * Install docker (better to use latest version from docker.com).
 * Install docker-compose. Can be installed via pip tool or via official binary. Install python3-cryptography from OS packages to avoid Rust compiler requirement, when using PIP
+* GNU Make also recommended to automate build process
 
 ```
 # apt-get update
@@ -89,28 +90,23 @@ tbng-i2p
 tbng-privoxy
 tbng-tor
 ```
-On SBC one should build following images (i2p may be skipped if no plans to use it):
+
+Build is driven via Makefile.
+
+SBC part:
 ```
-tbng-ap
-tbng-i2p
-tbng-privoxy
-tbng-tor
+make access_point i2p
 ```
-Note about I2P -- one can edit build.sh and change initial I2P version, if more recent version available on [official I2P site](https://geti2p.net/).
+or just `make access_point` to build system without I2P support.
+
+Note about I2P -- one can edit Makefile and change initial I2P version, if more recent version available on [official I2P site](https://geti2p.net/).
 But, be careful here -- installation script sequence may be changed, and "expect" magic may fail -- installer script must be updated then.
 
-On dedicated server for private bridge one will need to build following images:
+On dedicated server for private bridge one will need to build following:
 ```
-tbng-3proxy
-tbng-tor
+make bridge
 ```
 
-Build is relatively simple, just run supplied `build.sh` in appropriate folder:
-
-```
-cd dockerfiles/tbng-tor
-./build.sh
-```
 
 ### Configuring SBC
 SBC-part is configured by editing config files and docker-compose files
