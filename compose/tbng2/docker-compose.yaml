@@ -34,6 +34,7 @@ services:
           cpus: '0.5'
           memory: 16m
 
+## Remove i2p service if not used.
   tbng-i2p:
     image: tbng-i2p
     restart: unless-stopped
