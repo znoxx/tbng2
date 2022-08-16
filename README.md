@@ -84,6 +84,7 @@ cd tbng2
 Source code is located in `dockerfiles` folder:
 
 ```
+tbng-common
 tbng-3proxy
 tbng-ap
 tbng-i2p
