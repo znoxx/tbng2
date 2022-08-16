@@ -379,9 +379,8 @@ IMPORTANT: Mind sensitive data like bridge hashes in logs.
 
 ## Roadmap
 
-Actually, system does, what it does. There is a couple of things to solve someday.
+Actually, system does, what it does. There are some things to solve someday.
 
-* Docker image multistage build -- all images use same debian build. Good to have common packages pre-installed in one "common image" to avoid re-downloading and re-installing.
 * I2P installer improvements. I2P installation is done in "hacky" way using expect. This may f*ck up after I2P version update. Need to find out more reliable way to avoid service misbehave.
 
 However, pull requests are welcome!
