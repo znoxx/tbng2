@@ -53,9 +53,6 @@ services:
     image: tbng-ap
     restart: unless-stopped
     network_mode: host
-    depends_on:
-      tbng-tor:
-        condition: service_healthy
     cap_add:
      - NET_ADMIN
      - SYS_ADMIN
@@ -66,8 +63,8 @@ services:
    ### out and in interfaces
      - LAN=wlan0
      - WAN=eth0
-   ### initial dns
-     - DNS_SERVERS=192.168.1.24
+   ### initial dns -- switch to your own if initial is blocked
+     - DNS_SERVERS=8.8.8.8, 8.8.4.4
    ### subnet for AP
      - SUBNET=192.168.242.0
      - AP_ADDR=192.168.242.1

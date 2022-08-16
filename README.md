@@ -58,7 +58,7 @@ Idea is pretty much the same:
 * Enable ipv4 forwarding -- set net.ipv4.ip_forward = 1 and make this setting persistent. According to [this](https://github.com/moby/moby/issues/14041#issuecomment-220044954) docker daemon may check this value on start and set FORWARD policy to DROP in iptables.
 * Enable ipv4 dynamic address support -- set net.ipv4.ip_dynaddr = 1
 * Install docker (better to use latest version from docker.com).
-* Install docker-compose. Can be installed via pip tool, install python3-cryptography from OS packages to avoid Rust compiler requirement.
+* Install docker-compose. Can be installed via pip tool or via official binary. Install python3-cryptography from OS packages to avoid Rust compiler requirement, when using PIP
 
 ```
 # apt-get update
