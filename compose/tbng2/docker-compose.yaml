@@ -118,7 +118,7 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: "/var/downloads"
+      device: "${PWD}/data/i2psnark"
   i2pdata:
     driver: local
     driver_opts:

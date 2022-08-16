@@ -1,5 +1,5 @@
 #!/bin/sh
-folders="data/tbng-tor data/tbng-bridge data/tbng-i2p conf/tbng-i2p"
+folders="data/i2psnark data/tbng-tor data/tbng-bridge data/tbng-i2p conf/tbng-i2p"
 for folder in $folders
 do
    if [ -e "$folder" ]; then
