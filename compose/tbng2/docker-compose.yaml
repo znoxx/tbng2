@@ -5,6 +5,7 @@ services:
     image: tbng-tor
     restart: unless-stopped
     network_mode: host
+    container_name: tbng-tor
     healthcheck:
       test: ["CMD", "curl", "--fail", "--socks5", "127.0.0.1:9050","https://torproject.org"]
       interval: 30s
@@ -22,6 +23,7 @@ services:
   tbng-privoxy:
     image: tbng-privoxy
     restart: unless-stopped
+    container_name: tbng-privoxy
     network_mode: host
     depends_on:
       tbng-tor:
@@ -40,6 +42,7 @@ services:
     restart: unless-stopped
     network_mode: host
     stop_grace_period: 40s
+    container_name: tbng-i2p
     volumes:
      - i2pconf:/home/i2p-tbng/.i2p
      - i2psnark:/home/i2p-tbng/i2psnarkdata
@@ -52,6 +55,7 @@ services:
      
   tbng-ap:
     image: tbng-ap
+    container_name: tbng-ap
     restart: unless-stopped
     network_mode: host
     cap_add:

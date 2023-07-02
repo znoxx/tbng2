@@ -5,6 +5,7 @@ services:
     restart: unless-stopped
     image: tbng-tor
     hostname: tor
+    container_name: tbng-bridge
     ports:
       - 4443:4443 
     healthcheck:
@@ -24,6 +25,7 @@ services:
   tbng-3proxy:
     restart: unless-stopped
     image: tbng-3proxy_ds
+    container_name: tbng-3proxy
     links: 
       - tbng-bridge:tor
     ports:
