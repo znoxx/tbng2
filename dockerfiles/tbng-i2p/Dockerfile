@@ -2,7 +2,12 @@ FROM tbng-common
 
 ARG I2P_VERSION=xxx
 
-RUN apt-get install --no-install-recommends -y supervisor procps expect bash openjdk-17-jre-headless && \
+RUN apt-get install -y supervisor procps expect bash && \
+    apt-get  install -y openjdk-17-jdk && \
+    apt-get update --fix-missing && \
+    apt-get install -f && \
+    apt-get install openjdk-17-jdk && \ 
+    apt-get autoremove && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
 RUN groupadd -r i2p-tbng && useradd -r -g i2p-tbng i2p-tbng && \
