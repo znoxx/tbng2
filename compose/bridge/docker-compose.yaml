@@ -20,7 +20,7 @@ services:
       resources:
         limits:
           cpus: '0.5'
-          memory: 160m
+          memory: 256m
 
   tbng-3proxy:
     restart: unless-stopped
