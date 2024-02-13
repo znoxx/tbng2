@@ -69,15 +69,14 @@ services:
      - LAN=wlan0
      - WAN=eth0
    ### initial dns -- switch to your own if initial is blocked
-     # - DNS_SERVERS=8.8.8.8, 8.8.4.4
-     - DNS_SERVERS=192.168.1.24
+     - DNS_SERVERS=8.8.8.8, 8.8.4.4
    ### subnet for AP
      - SUBNET=192.168.242.0
      - AP_ADDR=192.168.242.1
    ### hostapd-related
      - SSID=MyDockerAP
    #  - CHANNEL=11 #Set explicit channel number for 2.4Ghz
-     - CHANNEL=36
+     - CHANNEL=165
      - COUNTRY_COODE=RU
      - WPA_PASSPHRASE=topsecretpassword
     # - HW_MODE=g  #Set this for 2.4Ghz
