@@ -76,7 +76,7 @@ services:
    ### hostapd-related
      - SSID=MyDockerAP
    #  - CHANNEL=11 #Set explicit channel number for 2.4Ghz
-     - CHANNEL=165
+     - CHANNEL=161
      - COUNTRY_COODE=RU
      - WPA_PASSPHRASE=topsecretpassword
     # - HW_MODE=g  #Set this for 2.4Ghz
