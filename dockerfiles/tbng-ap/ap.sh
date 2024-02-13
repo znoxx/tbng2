@@ -26,11 +26,9 @@ true ${SUBNET:=192.168.254.0}
 true ${AP_ADDR:=192.168.254.1}
 true ${SSID:=docker-ap}
 true ${CHANNEL:=11}
+true ${COUNTRY_CODE:=RU}
 true ${WPA_PASSPHRASE:=passw0rd}
 true ${HW_MODE:=g}
-true ${DRIVER:=nl80211}
-true ${HT_CAPAB:=[HT40-][SHORT-GI-20][SHORT-GI-40]}
-true ${MODE:=host}
 true ${DNS_SERVERS:=8.8.8.8, 8.8.4.4}
 true ${TOR_MODE:=direct}
 
@@ -39,21 +37,22 @@ if [ "${WAN}" ] ; then
 
   cat > "/etc/hostapd.conf" <<EOF
 interface=${LAN}
-driver=${DRIVER}
+driver=nl80211
 ssid=${SSID}
 hw_mode=${HW_MODE}
 channel=${CHANNEL}
+country_code=${COUNTRY_CODE}
 wpa=2
 wpa_passphrase=${WPA_PASSPHRASE}
 wpa_key_mgmt=WPA-PSK
-# TKIP is no secure anymore
-#wpa_pairwise=TKIP CCMP
 wpa_pairwise=CCMP
 rsn_pairwise=CCMP
 wpa_ptk_rekey=600
 ieee80211n=1
-#ht_capab=${HT_CAPAB}
 wmm_enabled=1 
+ignore_broadcast_ssid=0
+auth_algs=1
+macaddr_acl=0
 EOF
 
   echo "Setting interface ${LAN}"
