@@ -1,0 +1,38 @@
+version: '3.8'
+services:
+  tbng-i2p:
+    image: tbng-i2p
+    restart: unless-stopped
+    network_mode: host
+    stop_grace_period: 40s
+    container_name: tbng-i2p
+    volumes:
+     - i2pconf:/home/i2p-tbng/.i2p
+     - i2psnark:/home/i2p-tbng/i2psnarkdata
+     - i2pdata:/home/i2p-tbng/i2p
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 320m
+
+volumes:
+  i2pconf:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/conf/tbng-i2p"
+  i2psnark:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/data/i2psnark"
+  i2pdata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/data/tbng-i2p"
+

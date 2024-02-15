@@ -1,0 +1,21 @@
+version: '3.8'
+services:
+  tbng-3proxy:
+    restart: unless-stopped
+    image: tbng-3proxy_ds
+    container_name: tbng-3proxy
+    links: 
+      - tbng-bridge:tor
+    ports:
+      - 8888:8888
+      - 10800:1080
+    environment:
+      - AUTH=${AUTH}
+      - PROXY_USERNAME=${PROXY_USERNAME}
+      - PROXY_PASSWORD=${PROXY_PASSWORD}
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 32m
+

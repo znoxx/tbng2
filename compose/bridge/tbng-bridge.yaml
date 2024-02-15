@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+
+  tbng-bridge:
+    restart: unless-stopped
+    image: tbng-tor
+    hostname: tor
+    container_name: tbng-bridge
+    ports:
+      - 4443:4443 
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--socks5", "127.0.0.1:9050","https://torproject.org"]
+      interval: 30s
+      timeout: 10s
+      retries: 10 
+    volumes:
+      - bridgeconf:/opt/torconf
+      - bridgedata:/var/lib/tor
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 256m
+

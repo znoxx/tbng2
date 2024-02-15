@@ -1,0 +1,35 @@
+version: '3.8'
+services:
+  tbng-tor:
+    image: tbng-tor
+    restart: unless-stopped
+    network_mode: host
+    container_name: tbng-tor
+    healthcheck:
+      test: ["CMD", "curl", "--fail", "--socks5", "127.0.0.1:9050","https://torproject.org"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+    volumes:
+     - torconf:/opt/torconf
+     - tordata:/var/lib/tor
+    deploy:
+      resources:
+        limits:
+          cpus: '1'
+          memory: 64m
+
+volumes:
+  torconf:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/conf/tbng-tor"
+  tordata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/data/tbng-tor"
+

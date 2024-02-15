@@ -2,58 +2,19 @@ version: '3.8'
 services:
 
   tbng-bridge:
-    restart: unless-stopped
-    image: tbng-tor
-    hostname: tor
-    container_name: tbng-bridge
-    ports:
-      - 4443:4443 
-    healthcheck:
-      test: ["CMD", "curl", "--fail", "--socks5", "127.0.0.1:9050","https://torproject.org"]
-      interval: 30s
-      timeout: 10s
-      retries: 10 
-    volumes:
-      - bridgeconf:/opt/torconf
-      - bridgedata:/var/lib/tor
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 256m
+    extends:
+      file: tbng-bridge.yaml
+      service: tbng-bridge
 
   tbng-3proxy:
-    restart: unless-stopped
-    image: tbng-3proxy_ds
-    container_name: tbng-3proxy
-    links: 
+    extends:
+      file: tbng-3proxy.yaml
+      service: tbng-3proxy
+    links:
       - tbng-bridge:tor
-    ports:
-      - 8888:8888
-      - 10800:1080
-    environment:
-      - AUTH=${AUTH}
-      - PROXY_USERNAME=${PROXY_USERNAME}
-      - PROXY_PASSWORD=${PROXY_PASSWORD}
     depends_on:
       tbng-bridge:
         condition: service_healthy
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 32m
 
-volumes:
-  bridgeconf:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: "${PWD}/conf/tbng-bridge"
-  bridgedata:
-    driver: local
-    driver_opts:
-      type: none
-      o: bind
-      device: "${PWD}/data/tbng-bridge"
+include:
+  - volumes.yaml

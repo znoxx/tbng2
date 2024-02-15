@@ -1,0 +1,38 @@
+volumes:
+  torconf:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/conf/tbng-tor"
+  tordata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/data/tbng-tor"
+  privoxyconf:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/conf/tbng-privoxy"
+  i2pconf:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/conf/tbng-i2p"
+  i2psnark:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/data/i2psnark"
+  i2pdata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/data/tbng-i2p"
+

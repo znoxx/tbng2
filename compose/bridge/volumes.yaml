@@ -1,0 +1,14 @@
+version: '3.8'
+volumes:
+  bridgeconf:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/conf/tbng-bridge"
+  bridgedata:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/data/tbng-bridge"

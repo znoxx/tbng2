@@ -1,0 +1,24 @@
+version: '3.8'
+services:
+
+  tbng-privoxy:
+    image: tbng-privoxy
+    restart: unless-stopped
+    container_name: tbng-privoxy
+    network_mode: host
+    volumes:
+     - privoxyconf:/opt/privoxyconf
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 16m
+
+volumes:
+  privoxyconf:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      device: "${PWD}/conf/tbng-privoxy"
+
