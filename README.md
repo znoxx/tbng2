@@ -35,6 +35,10 @@ Containers running in *host* network to allow flawless firewall operation.
 
 One can change settings via docker-compose and apply new configuration from command line.
 
+One should edit `docker-compose.yaml` and _extend_ any service with own customization. 
+
+Also, `volumes.yaml` should be edited to satisfy desired folder structure (however, default one is pretty sophisticated).
+
 VPS part is intended to provide private bridge functionality.
 
 Idea is pretty much the same:
@@ -49,6 +53,7 @@ Idea is pretty much the same:
 * For private bridge functionality one will need rented VPS (tested with single core, 256Mb cheap KVM box).
 * For access point functionality one will need dedicated WAN interface, compatible with nl80211 driver.
 * User should be familiar with Docker and docker-compose practices.
+* Docker Compose version  2.20.3 or higher (should support `include` directive)
 
 ## Host system preparation
 
@@ -128,7 +133,7 @@ Or, refer to section about running private TOR bridge on VPS below. You will get
 
 #### compose/tbng2
 
-Further settings are configured in docker-compose.yaml. 
+Further settings are configured in docker-compose.yaml. Any part, located in service-related can be extended/overriden in main docker-compose.yaml. 
 
 
 ##### I2P part
@@ -168,7 +173,16 @@ Subnet and access point IP  -- 192.168.242.0 and 192.168.242.1 in example.
 
 ###### Environment: hostapd-related
 
-SSID, channel, password, etc. for your access point. By default, it is configured for 2.4 Ghz AP. One can play with HW_MODE and HT_CAPAB to configure e.g 5 Ghz access. Refer to official hostapd [documentation](https://w1.fi/hostapd/).
+SSID, channel, password, etc. for your access point. 
+By default, it is configured for 5 Ghz AP. However, one can change those env vars overriding them via extending. 
+Or by direct editing of tbng-ap.yaml (not recommended, better use [extend directive](https://docs.docker.com/compose/multiple-compose-files/extends/))
+
+```
+     - CHANNEL=11 
+     - COUNTRY_COODE=RU
+     - HW_MODE=g  
+```
+Refer to official hostapd [documentation](https://w1.fi/hostapd/).
 
 
 ###### Environment: Allowed ports 
