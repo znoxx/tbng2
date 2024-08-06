@@ -5,6 +5,8 @@ services:
 #  tbng-tpws:
 #    extends: tbng-tpws.yaml
 #    service: tbng-tpws
+#    environment:
+###  override env here   
 ###
   tbng-tor:
     extends:
