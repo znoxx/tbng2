@@ -1,6 +1,11 @@
 version: '3.8'
 
 services:
+## This part is mutual exclusive with tor+privoxy
+#  tbng-tpws:
+#    extends: tbng-tpws.yaml
+#    service: tbng-tpws
+###
   tbng-tor:
     extends:
       file: tbng-tor.yaml

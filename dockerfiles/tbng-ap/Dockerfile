@@ -13,6 +13,7 @@ ADD privoxy.sh /opt/ap/privoxy.sh
 ADD tor.sh /opt/ap/tor.sh
 ADD _tor.sh /opt/ap/_tor.sh
 ADD direct.sh /opt/ap/direct.sh
+ADD tpws.sh /opt/ap/tpws.sh
 ADD supervisord.conf /supervisord.conf
 
 

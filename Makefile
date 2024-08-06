@@ -18,11 +18,13 @@ ap: common
 	docker build dockerfiles/tbng-ap -t tbng-ap
 privoxy: common
 	docker build dockerfiles/tbng-privoxy -t tbng-privoxy
+tpws: common
+	docker build dockerfiles/tbng-tpws -t tbng-tpws --build-arg ARCH=`uname -m`
 
 
 bridge: tor 3proxy
-access_point: tor ap privoxy
+access_point: tor ap privoxy tpws
 
 clean:
-	docker image rm tbng-3proxy_ds tbng-tor tbng-i2p tbng-ap tbng-privoxy tbng-common
+	docker image rm tbng-3proxy_ds tbng-tor tbng-i2p tbng-ap tbng-privoxy tbng-common tbng-tpws
 
