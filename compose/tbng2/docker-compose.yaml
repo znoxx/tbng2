@@ -3,10 +3,11 @@ version: '3.8'
 services:
 ## Comment if not used
   tbng-tpws:
-    extends: tbng-tpws.yaml
-    service: tbng-tpws
-#    environment:
+    extends: 
+      file: tbng-tpws.yaml
+      service: tbng-tpws
 ###  override env here  -- values from section "environment" of tbng-tpws.yaml
+#   environment:
 ###
   tbng-tor:
     extends:
@@ -31,8 +32,8 @@ services:
     extends:
       file: tbng-ap.yaml
       service: tbng-ap
-#    environment:
-###  override env here  -- values from section "environment" of tbng-ap.yaml  
+###  override env here  -- values from section "environment" of tbng-ap.yaml
+#   environment:
 
 include:
   - volumes.yaml
