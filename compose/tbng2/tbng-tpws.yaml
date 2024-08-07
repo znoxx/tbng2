@@ -7,12 +7,12 @@ services:
     container_name: tbng-tpws
     network_mode: host
     environment:
-      - HOST_LIST: >
+      HOST_LIST: >
         googlevideo.com
-      - INTERFACE=wlan0
-      - DEBUG_LEVEL=1
-      - SETTINGS="--disorder --tlsrec=sni --split-pos=2"
- 
+      INTERFACE: wlan0
+      DEBUG_LEVEL: 1
+      SETTINGS: "--disorder --tlsrec=sni --split-pos=2"
+
     deploy:
       resources:
         limits:

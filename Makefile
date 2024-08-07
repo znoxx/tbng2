@@ -1,7 +1,7 @@
 .PHONY: clean
 
 3PROXY_RELEASE := 0.9.4
-I2P_VERSION := 2.4.0
+I2P_VERSION := 2.6.0
 
 all:
 	echo "Select bridge or access_point"

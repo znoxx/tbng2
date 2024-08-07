@@ -6,7 +6,7 @@ RUN apt-get install -y supervisor procps expect bash && \
     apt-get  install -y openjdk-17-jdk && \
     apt-get update --fix-missing && \
     apt-get install -f && \
-    apt-get install openjdk-17-jdk && \ 
+    apt-get install -y openjdk-17-jdk && \ 
     apt-get autoremove && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
