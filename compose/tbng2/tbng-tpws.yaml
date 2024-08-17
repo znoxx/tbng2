@@ -9,9 +9,17 @@ services:
     environment:
       HOST_LIST: >
         googlevideo.com
+        ggpht.com
+        ytimg.com
+        l.google.com
+        youtube.com
+        play.google.com
+        youtubei.googleapis.com
+        youtu.be
+        nhacmp3youtube.com
+        googleusercontent.com
       INTERFACE: wlan0
       DEBUG_LEVEL: 1
-      SETTINGS: "--disorder --tlsrec=sni --split-pos=2"
 
     deploy:
       resources:
