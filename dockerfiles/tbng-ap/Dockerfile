@@ -14,6 +14,9 @@ ADD tor.sh /opt/ap/tor.sh
 ADD _tor.sh /opt/ap/_tor.sh
 ADD direct.sh /opt/ap/direct.sh
 ADD tpws.sh /opt/ap/tpws.sh
+ADD _nfqws.sh /opt/ap/_nfqws.sh
+ADD nfqws.sh /opt/ap/nfqws.sh
+ADD nfqws_quic.sh /opt/ap/nfqws_quic.sh
 ADD supervisord.conf /supervisord.conf
 
 

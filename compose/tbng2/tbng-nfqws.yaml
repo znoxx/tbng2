@@ -6,6 +6,8 @@ services:
     restart: unless-stopped
     container_name: tbng-nfqws
     network_mode: host
+    cap_add:
+     - NET_ADMIN
     environment:
       HOST_LIST: >
         googlevideo.com
