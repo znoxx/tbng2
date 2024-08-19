@@ -2,11 +2,18 @@ version: '3.8'
 
 services:
 ## Comment if not used
-  tbng-tpws:
-    extends: 
-      file: tbng-tpws.yaml
-      service: tbng-tpws
-###  override env here  -- values from section "environment" of tbng-tpws.yaml
+#  tbng-tpws:
+#    extends: 
+#      file: tbng-tpws.yaml
+#      service: tbng-tpws
+###  override env here 
+
+## Comment if not used
+  tbng-nfqws:
+    extends:
+      file: tbng-nfqws.yaml
+      service: tbng-nfqws
+###  override env here  
 #   environment:
 ###
   tbng-tor:

@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+
+  tbng-nfqws:
+    image: tbng-nfqws
+    restart: unless-stopped
+    container_name: tbng-nfqws
+    network_mode: host
+    environment:
+      HOST_LIST: >
+        googlevideo.com
+        ggpht.com
+        ytimg.com
+        l.google.com
+        youtube.com
+        play.google.com
+        youtubei.googleapis.com
+        youtu.be
+        nhacmp3youtube.com
+        googleusercontent.com
+      ENABLE_QUICK: 1
+
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 16m
+
+
