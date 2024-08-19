@@ -17,7 +17,7 @@ services:
       resources:
         limits:
           cpus: '1'
-          memory: 64m
+          memory: 128m
 
 volumes:
   torconf:
