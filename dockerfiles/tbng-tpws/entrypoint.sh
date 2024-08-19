@@ -5,14 +5,14 @@ true ${DEBUG_LEVEL:=0}
 true ${PORT:=8119}
 true ${SETTINGS:='--disorder --tlsrec=sni --split-pos=2'}
 
+echo "nonexistent.domain" >/hostlist.txt
 if [ -n "${HOST_LIST+set}" ]; then
    echo "Running for hosts in /hostlist.txt: $HOST_LIST"
-   echo $HOST_LIST |tr " " "\n">/hostlist.txt
-   COMMAND="/usr/local/bin/tpws --port ${PORT} --bind-iface4=${INTERFACE} --debug=${DEBUG_LEVEL} ${SETTINGS} --hostlist /hostlist.txt"
+   echo $HOST_LIST |tr " " "\n">>/hostlist.txt
 else
-    echo "Running for all hosts..."
-   COMMAND="/usr/local/bin/tpws --port ${PORT} --bind-iface4=${INTERFACE} --debug=${DEBUG_LEVEL} ${SETTINGS}"
+    echo "No hostlist provided, using stub"
 fi
 
-echo $COMMAND |bash
+/usr/local/bin/tpws --port ${PORT} --bind-iface4=${INTERFACE} --debug=${DEBUG_LEVEL} ${SETTINGS} --hostlist /hostlist.txt
+
 
