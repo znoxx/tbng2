@@ -97,6 +97,8 @@ tbng-ap
 tbng-i2p
 tbng-privoxy
 tbng-tor
+tbng-tpws
+tbng-nfqws
 ```
 
 Build is driven via Makefile.
