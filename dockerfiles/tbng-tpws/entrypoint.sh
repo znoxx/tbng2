@@ -3,6 +3,7 @@
 true ${INTERFACE:=wlan0}
 true ${DEBUG_LEVEL:=0}
 true ${PORT:=8119}
+true ${SOCKS_PORT:=8120}
 true ${SETTINGS:='--disorder --tlsrec=sni --split-pos=2'}
 
 echo "nonexistent.domain" >/hostlist.txt
@@ -13,6 +14,10 @@ else
     echo "No hostlist provided, using stub"
 fi
 
-/usr/local/bin/tpws --port ${PORT} --bind-iface4=${INTERFACE} --debug=${DEBUG_LEVEL} ${SETTINGS} --hostlist /hostlist.txt
+/usr/local/bin/tpws --port ${PORT} --bind-iface4=${INTERFACE} --debug=${DEBUG_LEVEL} ${SETTINGS} --hostlist /hostlist.txt &
+/usr/local/bin/tpws --port ${SOCKS_PORT} --socks  --debug=${DEBUG_LEVEL} ${SETTINGS} --hostlist /hostlist.txt &
 
+wait -n
+
+exit $?
 
