@@ -4,6 +4,7 @@ Almost OOB solution to create:
 * TOR/I2P Wi-Fi Access Point
 * TOR/I2P Proxy On LAN (e.g. home LAN)
 * Private TOR Bridge server
+* Experimental support for tpws and and nfqws operation from [Zapret](https://github.com/bol-van/zapret) -- to bypass DPI filtering of e.g. YouTube in Russian federation -- see note below.
 
 This is a successor of [TBNG](https://github.com/znoxx/tbng) project.
 
@@ -14,6 +15,7 @@ This is a successor of [TBNG](https://github.com/znoxx/tbng) project.
 * Linux agnostic. Docker is used, so should work on any SBC/distro, where docker is working.
 * No hacks, no non-standard binaries (like hostapd or bigint library for I2P)
 * No fuzzy configs, custom scripts
+* TPWS and NFQWS modes support
 
 ### WhatZ gone
 
@@ -196,6 +198,9 @@ Most important setting:
 * privoxy -- all traffic is routed via privoxy -- automatic support of .onion and .i2p domains
 * tor -- Tor access point. One should explicitly set up http proxy in client systems to allow .onion and .i2p domain operation
 * direct -- Just a simple access point. No automatic TOR usage. One can still explicitly setup http proxy in client systems to allow .onion and .i2p domain operation _and_ tor access.
+* nfqws or nfqws_quic -- Access point, passing selected traffic via NFQWS tool (e.g. to bypass DPI). See note below.
+* tpws -- Access point, passing selected traffic via transparent proxy to bypass DPI, also socks proxy is working, e.g. to access it from LAN. See note below.
+
 
 
 ### Running SBC part
@@ -399,6 +404,53 @@ Actually, system does, what it does. There are some things to solve someday.
 * I2P installer improvements. I2P installation is done in "hacky" way using expect. This may f*ck up after I2P version update. Need to find out more reliable way to avoid service misbehave.
 
 However, pull requests are welcome!
+
+## Note about TPWS and NFQWS operaiton modes
+
+First things first -- those features are considered experimental and you should be aware about how things are working in general.
+
+Check those sources:
+* [Zapret](https://github.com/bol-van/zapret) -- especially issues about youtube, where users propose own settings
+* [nfqws for keenetic](https://habr.com/ru/articles/834826/) Nice explanation how NFQWS works and what happens
+
+### Defaults settings
+All default settings are tested at couple of providers and they appear to be working (at the time of writing).
+
+#### Host list
+Defined in tbng-tpws and tbng-nfqws YAML files. Can be overriden here (copy to docker-compose.yaml and add or remove something)
+#### Other settings
+Other settings can be passed via environment vars. List of variables to be passed can be found in entrypoint.sh at related Dockerfiles source dirs. Again, you must exactly understand what are you doing. 
+### Different modes of operation
+
+##### TOR_MODE=tpws
+All requests to HOST_LIST hosts are passed via transparent proxy. Also an instance of same tpws binary with same hostlist is running as socks proxy on port 8120. One can point e.g Mozilla Firefox to this socks proxy and use.
+
+Important! QUIC protocol (upd/443) is explicitly dropped in this mode for transparent proxy.
+##### TOR_MODE=nfqws_quic
+All requests to HOST_LIST hosts are passed via NFQ tables created in RAM. This applies to http and https traffic. Also http/3 (quic) traffic (udp/443) is routed. Actually 2 instances of nfqws is running.
+##### TOR_MODE=nfqws
+Pretty much the same as nfqws_quic, but no QUIC filtering. Note: for correct operation -- unset ENABLE_QUIC in docker-compose.yaml by _not_ defining it's value. 
+Example:
+```
+services:
+  tbng-nfqws:
+    extends:
+      file: tbng-nfqws.yaml
+      service: tbng-nfqws
+    environment:
+      ENABLE_QUIC
+```
+However, SmartTV like LG or Samsung most probably will suffer.
+
+### What to use ?
+It depends. TPWS is much more reliable, but may not (and most likely will not) work on Android TV. In most cases [SmartTube app for Android](https://smarttubeapp.github.io/) works ok with it.
+
+Currently nfqws_quic mode appears to be most useful. Again, to enable it, just make sure that tbng-nfqws section in main docker-compose is uncommented. The rest should work by default. Just don't forget to check logs.
+
+### No warranty here. You are on your own
+* Actually, this applies to whole project, but this section is indeed experimental. Please do not complain about not working TPWS/NFQWS. This may happen anytime and also depends on your ISP. 
+* No political/liberal/whatever bullshit. This is not about "resistance". This is all about comfort and connectivity.
+
 
 
 
