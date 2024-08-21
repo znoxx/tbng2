@@ -1,19 +1,20 @@
 version: '3.8'
-
+#### One should disable unused services
 services:
-## Comment if not used
+## Comment tpws service if not used
 #  tbng-tpws:
 #    extends: 
 #      file: tbng-tpws.yaml
 #      service: tbng-tpws
-###  override env here 
+###  override env here -- look for values from environment section of tbng-tpws.yaml AND from entrypoint.sh. Defaults are for youtube@Russia 
+#   environment:
 
-## Comment if not used
-  tbng-nfqws:
-    extends:
-      file: tbng-nfqws.yaml
-      service: tbng-nfqws
-###  override env here  
+## Comment nfqws service if not used
+#  tbng-nfqws:
+#    extends:
+#      file: tbng-nfqws.yaml
+#      service: tbng-nfqws
+###  override env here  -- look for values from environment section of tbng-nfqws.yaml AND from entrypoint.sh. Defaults are for youtube@Russia
 #   environment:
 ###
   tbng-tor:
@@ -30,16 +31,16 @@ services:
         condition: service_healthy
 
 ## Comment i2p service if not used.
-  tbng-i2p:
-    extends:
-      file: tbng-i2p.yaml
-      service: tbng-i2p
+#  tbng-i2p:
+#    extends:
+#      file: tbng-i2p.yaml
+#      service: tbng-i2p
 
   tbng-ap:
     extends:
       file: tbng-ap.yaml
       service: tbng-ap
-###  override env here  -- values from section "environment" of tbng-ap.yaml
+###  override env here  -- look for values from environment section of tbng-ap.yaml. NO Defaults. Settings are mandatory
 #   environment:
 
 include:
